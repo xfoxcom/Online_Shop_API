@@ -1,7 +1,7 @@
 package com.boev.shop.stock.service.serviceImpl;
 
-import com.boev.shop.stock.dto.ProductDto;
 import com.boev.shop.stock.entity.Product;
+import com.boev.shop.stock.dto.ProductDto;
 import com.boev.shop.stock.exception.ProductNotFoundException;
 import com.boev.shop.stock.mapper.ProductMapper;
 import com.boev.shop.stock.repository.ProductRepository;
@@ -44,5 +44,14 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(productMapper::productToProductDto)
                 .toList();
+    }
+
+    @Override
+    public ProductDto getProductByTitle(String title) {
+
+       Product product = productRepository.findByTitle(title)
+                .orElseThrow(() -> new ProductNotFoundException("No product with title " + title));
+
+       return productMapper.productToProductDto(product);
     }
 }

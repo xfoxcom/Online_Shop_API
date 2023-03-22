@@ -1,15 +1,15 @@
-package com.boev.shop.stock.entity;
+package com.boev.shop.organization.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Entity
 public class Organization {
 
@@ -23,7 +23,7 @@ public class Organization {
 
     private byte[] logo;
 
-    @OneToMany
-    @JoinColumn(name = "organization")
-    private Set<Product> products;
+    private boolean isEnable;
+
+    private Set<Long> productId;
 }

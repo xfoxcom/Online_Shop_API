@@ -11,4 +11,6 @@ public interface ProductService {
     void updateProduct(long id, ProductDto productDto);
 
     List<ProductDto> getAllAvailableProducts();
+
+    ProductDto getProductByTitle(String title);
 }

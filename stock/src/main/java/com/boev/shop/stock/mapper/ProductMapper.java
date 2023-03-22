@@ -1,7 +1,7 @@
 package com.boev.shop.stock.mapper;
 
-import com.boev.shop.stock.dto.ProductDto;
 import com.boev.shop.stock.entity.Product;
+import com.boev.shop.stock.dto.ProductDto;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)

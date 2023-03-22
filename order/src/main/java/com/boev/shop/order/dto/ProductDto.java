@@ -1,6 +1,5 @@
-package com.boev.shop.stock.dto;
+package com.boev.shop.order.dto;
 
-import com.boev.shop.stock.entity.Discount;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,8 +20,6 @@ public class ProductDto {
     private BigDecimal price;
 
     private long amount;
-
-    private Discount discount;
 
     private List<String> reviews;
 

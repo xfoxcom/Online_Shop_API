@@ -1,9 +1,6 @@
 package com.boev.shop.user.controller;
 
-import com.boev.shop.user.dto.NotificationDto;
-import com.boev.shop.user.dto.ProductDto;
-import com.boev.shop.user.dto.PurchaseDto;
-import com.boev.shop.user.dto.UserInfo;
+import com.boev.shop.user.dto.*;
 import com.boev.shop.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -18,11 +15,6 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-
-    @GetMapping("/products")
-    public ResponseEntity<List<ProductDto>> getAllProducts() {
-        return ResponseEntity.ok(userService.getAllProducts());
-    }
 
     @GetMapping("/notifications")
     public ResponseEntity<List<NotificationDto>> getAllNotifications(@PathVariable long id) {
@@ -41,9 +33,8 @@ public class UserController {
     }
 
     @PostMapping("/organization")
-    public ResponseEntity<Void> newOrganizationRequest() {
-        userService.registerOrganization();
+    public ResponseEntity<Void> newOrganizationRequest(@RequestBody OrgRequestDto orgRequestDto) {
+        userService.registerOrganization(orgRequestDto);
         return ResponseEntity.ok().build();
     }
-
 }

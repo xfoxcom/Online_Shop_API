@@ -1,6 +1,5 @@
 package com.boev.shop.user.dto;
 
-import com.boev.shop.stock.entity.Organization;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,8 +13,6 @@ public class ProductDto {
     private String title;
 
     private String description;
-
-    private Organization organization;
 
     private BigDecimal price;
 

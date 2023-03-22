@@ -23,15 +23,14 @@ public class Product {
 
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "organizationId")
-    private Organization organization;
+    private long organizationId;
 
     private BigDecimal price;
 
     private long amount;
 
     @OneToOne
+    @JoinColumn(name = "discountId")
     private Discount discount;
 
     private List<String> reviews;
