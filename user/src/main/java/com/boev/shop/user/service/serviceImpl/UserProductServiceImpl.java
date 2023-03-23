@@ -29,9 +29,7 @@ public class UserProductServiceImpl implements UserProductService {
 
         params.put("title", title);
 
-       PurchaseDto purchaseDto = restTemplate.build().getForObject(URL_ORDER, PurchaseDto.class, params);
-
-       return purchaseDto;
+        return restTemplate.build().getForObject(URL_ORDER, PurchaseDto.class, params);
     }
 
     @Override

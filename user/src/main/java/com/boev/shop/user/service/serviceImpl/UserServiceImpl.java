@@ -10,6 +10,7 @@ import com.boev.shop.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,8 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final PasswordEncoder passwordEncoder;
+
     private final RestTemplateBuilder restTemplate;
 
     private final String URL = "http://localhost:8084/request";
@@ -29,16 +32,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void registerAccount(UserInfo userInfo) {
+    public String registerAccount(UserInfo userInfo) {
 
         Account account = new Account();
         account.setUsername(userInfo.getUsername());
         account.setEmail(userInfo.getEmail());
-        account.setPassword(userInfo.getPassword()); // TODO: 20.03.2023 Encode password
+        account.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+
+        if (userRepository.count() == 0) account.setRoles("ADMIN");
+        else account.setRoles("USER");
+
         account.setEnable(true);
         account.setBalance(BigDecimal.ZERO);
 
         userRepository.save(account);
+
+        return userInfo.getUsername();
     }
 
     @Override

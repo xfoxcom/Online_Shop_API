@@ -30,6 +30,8 @@ public class Account {
 
     private boolean isEnable;
 
+    private String roles;
+
     @OneToMany
     @JoinColumn(name = "account")
     private List<Purchase> purchases;

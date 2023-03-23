@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserService {
 
-    void registerAccount(UserInfo userInfo);
+    String registerAccount(UserInfo userInfo);
 
     void registerOrganization(OrgRequestDto orgRequestDto);
 

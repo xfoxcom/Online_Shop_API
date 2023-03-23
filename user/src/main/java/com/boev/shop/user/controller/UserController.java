@@ -27,9 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> registerNewAccount(@RequestBody UserInfo userInfo) {
-        userService.registerAccount(userInfo);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> registerNewAccount(@RequestBody UserInfo userInfo) {
+        return ResponseEntity.ok(userService.registerAccount(userInfo) + " registered!");
     }
 
     @PostMapping("/organization")
