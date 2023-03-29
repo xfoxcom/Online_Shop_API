@@ -1,5 +1,6 @@
 package com.boev.shop.user.service.serviceImpl;
 
+import com.boev.shop.user.dto.DiscountDto;
 import com.boev.shop.user.dto.ProductDto;
 import com.boev.shop.user.service.AdminProductService;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +16,14 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     private final RestTemplateBuilder restTemplate;
 
-    private final String url = "http://localhost:8082/products";
+    private final String URL = "http://localhost:8082/products";
 
     @Override
     public void addProduct(ProductDto productDto) {
 
         HttpEntity<ProductDto> request = new HttpEntity<>(productDto);
 
-        restTemplate.build().postForObject(url, request, ProductDto.class);
+        restTemplate.build().postForObject(URL, request, ProductDto.class);
     }
 
     @Override
@@ -30,13 +31,16 @@ public class AdminProductServiceImpl implements AdminProductService {
 
         HttpEntity<ProductDto> request = new HttpEntity<>(productDto);
 
-        restTemplate.build().postForObject(url, request, ProductDto.class);
+        restTemplate.build().postForObject(URL, request, ProductDto.class);
 
     }
 
     @Override
-    public void addDiscount(List<ProductDto> productDtos) {
+    public void addDiscount(DiscountDto discountDto) {
 
+        HttpEntity<DiscountDto> request = new HttpEntity<>(discountDto);
+
+        restTemplate.build().postForObject(URL + "/discounts", request, DiscountDto.class);
     }
 
     @Override

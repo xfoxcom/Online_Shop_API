@@ -1,5 +1,6 @@
 package com.boev.shop.stock.entity;
 
+import com.boev.shop.stock.dto.DiscountDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,9 @@ public class Discount {
 
     @OneToOne(mappedBy = "discount")
     private Product product;
+
+    public Discount(DiscountDto discountDto) {
+        discount = discountDto.getDiscount();
+        expired = discountDto.getExpired();
+    }
 }

@@ -1,5 +1,6 @@
 package com.boev.shop.user.controller;
 
+import com.boev.shop.user.dto.DiscountDto;
 import com.boev.shop.user.dto.ProductDto;
 import com.boev.shop.user.service.AdminProductService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/products")
 public class AdminProductController {
     private final AdminProductService adminProductService;
+
+    @PostMapping("/discounts")
+    public ResponseEntity<Void> addDiscounts(@RequestBody DiscountDto discountDto) {
+        adminProductService.addDiscount(discountDto);
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping
     public ResponseEntity<Void> addNewProductToStock(@RequestBody ProductDto productDto) {
