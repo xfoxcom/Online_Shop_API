@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,10 +36,12 @@ public class Account {
 
     @OneToMany
     @JoinColumn(name = "account")
+    @Fetch(FetchMode.SUBSELECT)
     private List<Purchase> purchases;
 
     @OneToMany
     @JoinColumn(name = "account")
+    @Fetch(FetchMode.SUBSELECT)
     private List<Notification> notifications;
 
     private Set<String> organizations;

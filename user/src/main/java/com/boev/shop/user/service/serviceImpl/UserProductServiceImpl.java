@@ -45,7 +45,6 @@ public class UserProductServiceImpl implements UserProductService {
 
         String productTitleForReview = reviewDto.getTitle();
 
-        // получить все покупки юзера по имени
         Account account = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AccountNotFoundException("No account with username " + username));
 
