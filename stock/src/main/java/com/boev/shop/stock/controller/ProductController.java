@@ -2,6 +2,7 @@ package com.boev.shop.stock.controller;
 
 import com.boev.shop.stock.dto.DiscountDto;
 import com.boev.shop.stock.dto.ProductDto;
+import com.boev.shop.stock.dto.ReviewDto;
 import com.boev.shop.stock.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +17,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping("/discounts")
-    @CrossOrigin(origins = "http://localhost:8081/admin")
-    public ResponseEntity<Void> addDiscountsToProducts(@RequestBody DiscountDto discountDto) {
-        productService.addDiscounts(discountDto);
-        return ResponseEntity.ok().build();
-    }
 
     @GetMapping("/{title}")
     public ResponseEntity<ProductDto> getProductByTitle(@PathVariable String title) {
@@ -33,10 +28,23 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllAvailableProducts());
     }
 
+    @PostMapping("/review")
+    public ResponseEntity<Void> makeReviewOfProduct(@RequestBody ReviewDto reviewDto) {
+        productService.addReview(reviewDto);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping
     @CrossOrigin(origins = "http://localhost:8081/admin")
     public ResponseEntity<Void> addNewProductToStock(@RequestBody ProductDto productDto) {
         productService.addNewProduct(productDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/discounts")
+    @CrossOrigin(origins = "http://localhost:8081/admin")
+    public ResponseEntity<Void> addDiscountsToProducts(@RequestBody DiscountDto discountDto) {
+        productService.addDiscounts(discountDto);
         return ResponseEntity.ok().build();
     }
 

@@ -1,6 +1,7 @@
 package com.boev.shop.stock.service.serviceImpl;
 
 import com.boev.shop.stock.dto.DiscountDto;
+import com.boev.shop.stock.dto.ReviewDto;
 import com.boev.shop.stock.entity.Discount;
 import com.boev.shop.stock.entity.Product;
 import com.boev.shop.stock.dto.ProductDto;
@@ -72,5 +73,17 @@ public class ProductServiceImpl implements ProductService {
                 .count();
 
       log.info("Updated " + count + " discounts.");
+    }
+
+    @Override
+    @Transactional
+    public void addReview(ReviewDto reviewDto) {
+
+        String title = reviewDto.getTitle();
+
+        Product product = productRepository.findByTitle(title)
+                .orElseThrow(() -> new ProductNotFoundException("No product with title " + title));
+
+        product.getReviews().add(reviewDto.getReview());
     }
 }
