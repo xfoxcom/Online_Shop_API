@@ -12,6 +12,7 @@ import com.boev.shop.user.service.UserProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -31,13 +32,20 @@ public class UserProductServiceImpl implements UserProductService {
     private final String URL_ORDER = "http://localhost:8083/order/{title}";
 
     @Override
-    public PurchaseDto makeOrderByTitle(String title) {
+    public PurchaseDto makeOrderByTitle(String title, String username) {
 
         Map<String, String> params = new HashMap<>();
 
         params.put("title", title);
 
-        return restTemplate.build().getForObject(URL_ORDER, PurchaseDto.class, params);
+        PurchaseDto purchaseDtoResponseEntity = restTemplate.build().getForObject(URL_ORDER, PurchaseDto.class, params);
+
+        Account account = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AccountNotFoundException("No account with username " + username));
+
+        account.setBalance(account.getBalance().subtract(purchaseDtoResponseEntity.getPrice()));
+
+        return purchaseDtoResponseEntity;
     }
 
     @Override

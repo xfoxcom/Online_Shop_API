@@ -3,6 +3,7 @@ package com.boev.shop.order.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Setter
@@ -21,4 +22,6 @@ public class Order {
     private String title;
 
     private LocalDateTime dateOfPurchase;
+
+    private BigDecimal price;
 }

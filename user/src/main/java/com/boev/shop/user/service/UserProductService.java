@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserProductService {
 
-    PurchaseDto makeOrderByTitle(String title);
+    PurchaseDto makeOrderByTitle(String title, String username);
 
     void makeProductReview(ReviewDto reviewDto, String name);
 

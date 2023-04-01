@@ -10,7 +10,4 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<Account, Long> {
     Optional<Account> findByUsername(String username);
-
-    @Query("SELECT a FROM ACCOUNT a")
-    List<String> getUserPurchasesTitles();
 }

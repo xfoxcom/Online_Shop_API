@@ -24,8 +24,8 @@ public class UserProductController {
     }
 
     @GetMapping("/{title}")
-    public ResponseEntity<PurchaseDto> makeOrder(@PathVariable String title) {
-        return ResponseEntity.ok(userProductService.makeOrderByTitle(title));
+    public ResponseEntity<PurchaseDto> makeOrder(@PathVariable String title, Principal principal) {
+        return ResponseEntity.ok(userProductService.makeOrderByTitle(title, principal.getName()));
     }
 
     @PostMapping
