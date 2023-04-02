@@ -6,6 +6,7 @@ import com.boev.shop.user.dto.PurchaseDto;
 import com.boev.shop.user.dto.ReviewDto;
 import com.boev.shop.user.entity.Account;
 import com.boev.shop.user.exception.AccountNotFoundException;
+import com.boev.shop.user.exception.NotEnoughMoneyException;
 import com.boev.shop.user.exception.UserProductNotFound;
 import com.boev.shop.user.repository.UserRepository;
 import com.boev.shop.user.service.UserProductService;
@@ -14,6 +15,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,7 @@ public class UserProductServiceImpl implements UserProductService {
     private final String URL_ORDER = "http://localhost:8083/order/{title}";
 
     @Override
+    @Transactional
     public PurchaseDto makeOrderByTitle(String title, String username) {
 
         Map<String, String> params = new HashMap<>();
@@ -42,6 +45,9 @@ public class UserProductServiceImpl implements UserProductService {
 
         Account account = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AccountNotFoundException("No account with username " + username));
+
+        if (account.getBalance().compareTo(purchaseDtoResponseEntity.getPrice()) < 0)
+            throw new NotEnoughMoneyException(title + " is too expensive for you");
 
         account.setBalance(account.getBalance().subtract(purchaseDtoResponseEntity.getPrice()));
 
